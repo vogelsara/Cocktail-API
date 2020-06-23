@@ -1,0 +1,24 @@
+{
+  "name": "Cocktail-API",
+  "version": "1.0.0",
+  "description": "School project, built by React, using Node.js ans API requests",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vogelsara/Cocktail-API.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vogelsara/Cocktail-API/issues"
+  },
+  "homepage": "https://github.com/vogelsara/Cocktail-API#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
