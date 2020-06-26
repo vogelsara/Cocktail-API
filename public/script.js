@@ -3,6 +3,10 @@ class App extends React.Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            randomCocktailName: ""
+        }
+
         this.getRandomCocktail = this.getRandomCocktail.bind(this);
     }
 
@@ -10,10 +14,16 @@ class App extends React.Component {
         
         var xhttp = new XMLHttpRequest();
 
+        var app = this;
+
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
                 var randomCocktail = JSON.parse(this.responseText);
                 console.log(randomCocktail);
+                var randomCocktailName = randomCocktail["drinks"][0]["strDrink"];
+                app.setState({
+                    randomCocktailName: randomCocktailName
+                });
             }
         }
 
@@ -24,7 +34,10 @@ class App extends React.Component {
     
     render() {
         return (
-            <button onClick={this.getRandomCocktail}></button>
+            <div>
+                <button onClick={this.getRandomCocktail}></button>
+                <p>{this.state.randomCocktailName}</p>
+            </div>
         )
     }
 }
