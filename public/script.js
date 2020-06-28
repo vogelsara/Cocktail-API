@@ -3,7 +3,7 @@ function CocktailCard(props) {
       return null;
     }
 
-    var listOfIngredients = props.ingredients.map((ingredient) => <li>{ingredient}</li>);
+    var listOfIngredients = props.ingredients.map((ingredient) => <li key={ingredient}>{ingredient}</li>);
   
     return (
         <div className="cocktailCard">
