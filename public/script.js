@@ -23,22 +23,19 @@ class App extends React.Component {
             randomCocktailName: "",
             randomCocktailImage: "",
             randomCocktailIngredients: [],
-            buttonClicked: false
+            buttonClicked: false,
+            favorits: []
         }
-
         this.getRandomCocktail = this.getRandomCocktail.bind(this);
+        this.saveFavoritCocktail = this.saveFavoritCocktail.bind(this);
     }
 
     getRandomCocktail(e) {
-        
         var xhttp = new XMLHttpRequest();
-
         var app = this;
-
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
                 var randomCocktail = JSON.parse(this.responseText);
-                console.log(randomCocktail);
                 var randomCocktailName = randomCocktail["drinks"][0]["strDrink"];
                 var randomCocktailImage = randomCocktail["drinks"][0]["strDrinkThumb"];
                 var randomCocktailIngredients = [];
@@ -95,10 +92,25 @@ class App extends React.Component {
                 });
             }
         }
-
         xhttp.open("GET", "https://www.thecocktaildb.com/api/json/v1/1/random.php", true);
-
         xhttp.send();
+    }
+
+    saveFavoritCocktail(e) {
+        var body = {
+            randomCocktailName: this.state.randomCocktailName,
+            randomCocktailImage: this.state.randomCocktailImage,
+            randomCocktailIngredients: this.state.randomCocktailIngredients
+        }
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && parseInt(this.status/100) == 2) {
+              console.log(this.responseText);
+            }
+        }
+        xhttp.open("POST", "/api/cocktails", true);
+        xhttp.setRequestHeader("Content-Type", "application/json");
+        xhttp.send(JSON.stringify(body));
     }
     
     render() {
@@ -110,8 +122,8 @@ class App extends React.Component {
                 randomCocktailName={this.state.randomCocktailName}
                 randomCocktailImage={this.state.randomCocktailImage}
                 ingredients={this.state.randomCocktailIngredients}
-
                 />
+                <button onClick={ () => this.saveFavoritCocktail()}>Add to my favorits</button>
             </div>
         )
     }
