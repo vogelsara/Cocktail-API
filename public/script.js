@@ -111,6 +111,10 @@ class App extends React.Component {
               console.log(JSON.parse(this.responseText));
               self.renderFavoritCocktails();
             }
+            if(this.readyState == 4 && this.status == 405){
+                var responseMessage = JSON.parse(this.responseText)["message"];
+                alert(responseMessage);
+            }
         }
         xhttp.open("POST", "/api/cocktails", true);
         xhttp.setRequestHeader("Content-Type", "application/json");
