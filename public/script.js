@@ -28,6 +28,8 @@ class App extends React.Component {
         }
         this.getRandomCocktail = this.getRandomCocktail.bind(this);
         this.saveFavoritCocktail = this.saveFavoritCocktail.bind(this);
+
+        this.renderFavoritCocktails();
     }
 
     getRandomCocktail(e) {
@@ -97,23 +99,44 @@ class App extends React.Component {
     }
 
     saveFavoritCocktail(e) {
+        var self = this;
         var body = {
-            randomCocktailName: this.state.randomCocktailName,
-            randomCocktailImage: this.state.randomCocktailImage,
-            randomCocktailIngredients: this.state.randomCocktailIngredients
+            favoritCocktailName: this.state.randomCocktailName,
+            favoritCocktailImage: this.state.randomCocktailImage,
+            favoritCocktailIngredients: this.state.randomCocktailIngredients
         }
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
           if (this.readyState == 4 && parseInt(this.status/100) == 2) {
-              console.log(this.responseText);
+              self.renderFavoritCocktails();
             }
         }
         xhttp.open("POST", "/api/cocktails", true);
         xhttp.setRequestHeader("Content-Type", "application/json");
         xhttp.send(JSON.stringify(body));
     }
+
+    renderFavoritCocktails() {
+        var self = this;
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && parseInt(this.status/100) == 2) {
+            var responseJson = JSON.parse(this.responseText);
+            console.log(responseJson);
+            self.setState({
+                favorits: responseJson
+            });
+        }
+        }
+        xhttp.open("GET", "/api/cocktails", true);
+        xhttp.setRequestHeader("Content-Type", "application/json");
+        xhttp.send();
+    }
     
     render() {
+
+    var favoritCocktailList = this.state.favorits.map((favoritCocktail) => <li key={favoritCocktail["favoritCocktailName"]}>{favoritCocktail["favoritCocktailName"]}</li>);
+
         return (
             <div>
                 <button onClick={ () => this.getRandomCocktail()}>My random cocktail</button>
@@ -124,6 +147,7 @@ class App extends React.Component {
                 ingredients={this.state.randomCocktailIngredients}
                 />
                 <button onClick={ () => this.saveFavoritCocktail()}>Add to my favorits</button>
+                <ul>{favoritCocktailList}</ul>
             </div>
         )
     }

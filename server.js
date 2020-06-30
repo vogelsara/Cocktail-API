@@ -12,3 +12,5 @@ app.post('/api/cocktails', (req, res) => {
         res.status(201).json(cocktail);
         console.log(favoritCocktails);
 })
+
+app.get('/api/cocktails', (req, res) => res.json(favoritCocktails));
