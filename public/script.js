@@ -108,6 +108,7 @@ class App extends React.Component {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
           if (this.readyState == 4 && parseInt(this.status/100) == 2) {
+              console.log(JSON.parse(this.responseText));
               self.renderFavoritCocktails();
             }
         }
