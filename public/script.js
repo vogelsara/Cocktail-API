@@ -11,6 +11,7 @@ function CocktailCard(props) {
             <img src={props.randomCocktailImage} alt="Random cocktail" width="500" height="600"></img>
             <h2>Ingredients</h2>
             <ul>{listOfIngredients}</ul>
+            <p>{props.recipe}</p>
         </div>
     );
   }
@@ -23,6 +24,7 @@ class App extends React.Component {
             randomCocktailName: "",
             randomCocktailImage: "",
             randomCocktailIngredients: [],
+            randomCocktailRecipe: "",
             buttonClicked: false,
             favorits: []
         }
@@ -41,6 +43,7 @@ class App extends React.Component {
                 var randomCocktailName = randomCocktail["drinks"][0]["strDrink"];
                 var randomCocktailImage = randomCocktail["drinks"][0]["strDrinkThumb"];
                 var randomCocktailIngredients = [];
+                var randomCocktailRecipe = randomCocktail["drinks"][0]["strInstructions"];
                 if (randomCocktail["drinks"][0]["strIngredient1"]) {
                     randomCocktailIngredients.push(randomCocktail["drinks"][0]["strIngredient1"]);
                 }
@@ -90,6 +93,7 @@ class App extends React.Component {
                     randomCocktailName: randomCocktailName,
                     randomCocktailImage: randomCocktailImage,
                     randomCocktailIngredients: randomCocktailIngredients,
+                    randomCocktailRecipe: randomCocktailRecipe,
                     buttonClicked: true
                 });
             }
@@ -103,7 +107,8 @@ class App extends React.Component {
         var body = {
             favoritCocktailName: this.state.randomCocktailName,
             favoritCocktailImage: this.state.randomCocktailImage,
-            favoritCocktailIngredients: this.state.randomCocktailIngredients
+            favoritCocktailIngredients: this.state.randomCocktailIngredients,
+            favoritCocktailRecipe: this.state.randomCocktailRecipe
         }
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
@@ -150,6 +155,7 @@ class App extends React.Component {
                 randomCocktailName={this.state.randomCocktailName}
                 randomCocktailImage={this.state.randomCocktailImage}
                 ingredients={this.state.randomCocktailIngredients}
+                recipe={this.state.randomCocktailRecipe}
                 />
                 <button onClick={ () => this.saveFavoritCocktail()}>Add to my favorits</button>
                 <ul>{favoritCocktailList}</ul>
