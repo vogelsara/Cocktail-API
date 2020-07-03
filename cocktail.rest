@@ -1,1 +1,13 @@
 GET https://www.thecocktaildb.com/api/json/v1/1/random.php
+###
+POST http://localhost:3000/api/cocktails
+Content-Type: application/json
+
+{
+    "favoritCocktailName": "The Evil Blue Thing",
+    "favoritCocktailImage": "https://www.thecocktaildb.com/images/media/drink/ojnpz71504793059.jpg",
+    "favoritCocktailIngredients": ["Creme de Cacao", "Blue Curacao", "Light rum"],
+    "favoritCocktailRecipe": "Pour ingredients into glass, and drop in a blue whale! The blue whale isn't really necessary, but it makes the drink more \"fun\"."
+}
+###
+DELETE http://localhost:3000/api/cocktails/The Evil Blue Thing
