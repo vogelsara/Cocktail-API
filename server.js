@@ -35,7 +35,7 @@ app.delete('/api/cocktails/:id', (req, res) => {
     const cocktailName = req.params["id"];
     const cocktailIndex = getCocktailByName(cocktailName);
 
-    if(cocktailIndex) {
+    if(cocktailIndex != nonExistentCocktailIndex) {
         favoritCocktails.splice(cocktailIndex, 1);
     }
 

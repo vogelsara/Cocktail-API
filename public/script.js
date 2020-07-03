@@ -18,7 +18,7 @@ function CocktailCard(props) {
 
 function FavoritCocktail(props) {
     return (
-    <li><a>{props.name}</a><i class="fa fa-trash fa-lg" onClick=""></i></li>
+    <li><a>{props.name}</a><i className="fa fa-trash fa-lg" onClick={() => {props.deleteFavoritCocktail(props.name);}}></i></li>
     );
 }
 
@@ -36,6 +36,7 @@ class App extends React.Component {
         }
         this.getRandomCocktail = this.getRandomCocktail.bind(this);
         this.saveFavoritCocktail = this.saveFavoritCocktail.bind(this);
+        this.deleteFavoritCocktail = this.deleteFavoritCocktail.bind(this);
 
         this.renderFavoritCocktails();
     }
@@ -151,7 +152,7 @@ class App extends React.Component {
                 alert(responseMessage);
             }
         }
-        xhttp.open("POST", "/api/cocktails", true);
+        xhttp.open("DELETE", "/api/cocktails/" + cocktailName, true);
         xhttp.setRequestHeader("Content-Type", "application/json");
         xhttp.send(JSON.stringify(body));
     }
@@ -175,7 +176,7 @@ class App extends React.Component {
     
     render() {
 
-    var favoritCocktailList = this.state.favorits.map((favoritCocktail) => <FavoritCocktail name={favoritCocktail["favoritCocktailName"]} />);
+    var favoritCocktailList = this.state.favorits.map((favoritCocktail) => <FavoritCocktail name={favoritCocktail["favoritCocktailName"]} deleteFavoritCocktail={this.deleteFavoritCocktail} />);
 
         return (
             <div>
