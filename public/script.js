@@ -16,10 +16,39 @@ function CocktailCard(props) {
     );
   }
 
-function FavoritCocktail(props) {
-    return (
-    <li><a>{props.name}</a><i className="fa fa-trash fa-lg" onClick={() => {props.deleteFavoritCocktail(props.name);}}></i></li>
-    );
+class FavoritCocktail extends React.Component {
+    constructor(props){
+        super(props);
+
+        this.state = {
+            cocktailCardIsHidden: true
+        };
+
+        this.changeState = this.changeState.bind(this);
+    }
+
+    changeState() {
+        if(this.state.cocktailCardIsHidden){
+            this.setState({cocktailCardIsHidden: false});
+        } else {
+            this.setState({cocktailCardIsHidden: true});
+        }
+    }
+
+    render() {
+        return (
+            <li>
+            <span onClick={this.changeState}>{this.props.name}</span><i className="fa fa-trash fa-lg" onClick={() => {this.props.deleteFavoritCocktail(this.props.name);}}></i>
+            <CocktailCard
+            hide={this.state.cocktailCardIsHidden}
+            randomCocktailName={this.props.name}
+            randomCocktailImage={this.props.image}
+            ingredients={this.props.ingredients}
+            recipe={this.props.recipe}
+            />
+            </li>
+        );
+    }
 }
 
 class App extends React.Component {
@@ -176,7 +205,13 @@ class App extends React.Component {
     
     render() {
 
-    var favoritCocktailList = this.state.favorits.map((favoritCocktail) => <FavoritCocktail name={favoritCocktail["favoritCocktailName"]} deleteFavoritCocktail={this.deleteFavoritCocktail} />);
+    var favoritCocktailList = this.state.favorits.map((favoritCocktail) =>
+    <FavoritCocktail
+    name={favoritCocktail["favoritCocktailName"]}
+    image={favoritCocktail["favoritCocktailImage"]}
+    ingredients={favoritCocktail["favoritCocktailIngredients"]}
+    recipe={favoritCocktail["favoritCocktailRecipe"]}
+    deleteFavoritCocktail={this.deleteFavoritCocktail}/>);
 
         return (
             <div>
