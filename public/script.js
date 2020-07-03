@@ -16,6 +16,12 @@ function CocktailCard(props) {
     );
   }
 
+function FavoritCocktail(props) {
+    return (
+    <li><a>{props.name}</a><i class="fa fa-trash fa-lg" onClick=""></i></li>
+    );
+}
+
 class App extends React.Component {
     constructor(props) {
         super(props);
@@ -126,6 +132,30 @@ class App extends React.Component {
         xhttp.send(JSON.stringify(body));
     }
 
+    deleteFavoritCocktail(cocktailName) {
+        var self = this;
+        var body = {
+            favoritCocktailName: this.state.randomCocktailName,
+            favoritCocktailImage: this.state.randomCocktailImage,
+            favoritCocktailIngredients: this.state.randomCocktailIngredients,
+            favoritCocktailRecipe: this.state.randomCocktailRecipe
+        }
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && parseInt(this.status/100) == 2) {
+              console.log(JSON.parse(this.responseText));
+              self.renderFavoritCocktails();
+            }
+            if(this.readyState == 4 && this.status == 405){
+                var responseMessage = JSON.parse(this.responseText)["message"];
+                alert(responseMessage);
+            }
+        }
+        xhttp.open("POST", "/api/cocktails", true);
+        xhttp.setRequestHeader("Content-Type", "application/json");
+        xhttp.send(JSON.stringify(body));
+    }
+
     renderFavoritCocktails() {
         var self = this;
         var xhttp = new XMLHttpRequest();
@@ -145,7 +175,7 @@ class App extends React.Component {
     
     render() {
 
-    var favoritCocktailList = this.state.favorits.map((favoritCocktail) => <li key={favoritCocktail["favoritCocktailName"]}>{favoritCocktail["favoritCocktailName"]}</li>);
+    var favoritCocktailList = this.state.favorits.map((favoritCocktail) => <FavoritCocktail name={favoritCocktail["favoritCocktailName"]} />);
 
         return (
             <div>
