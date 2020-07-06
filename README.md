@@ -3,9 +3,9 @@ School project, built by React, using Node.js an API requests
 
 ## Assignment
 
-* Create an API use a free resource
+* Create an API with at least with GET and POST requests
 * All end points must be accessible via a REST Client file (.rest)
-* The datas that the API handles must be stored locally in the server file
+* The data that the API handles must be stored locally in the server file
 * A simple client interface must be available to call the API's different endpoints as well as show the result of GET calls
 * The client must fetch and display data from an external API
 * GitHub must be used

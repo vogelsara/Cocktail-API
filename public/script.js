@@ -7,9 +7,12 @@ function CocktailCard(props) {
   
     return (
         <div className="cocktailCard">
-            <p>{props.randomCocktailName}</p>
-            <img src={props.randomCocktailImage} alt="Random cocktail" width="500" height="600"></img>
-            <h2>Ingredients</h2>
+            <h2>{props.randomCocktailName}</h2>
+            <div class="cocktailImage">
+                <img src={props.randomCocktailImage} alt="Random cocktail" width="500" height="600"></img>
+                <div class="tape"></div>
+            </div>
+            <p>Ingredients:</p>
             <ul>{listOfIngredients}</ul>
             <p>{props.recipe}</p>
         </div>
@@ -38,7 +41,7 @@ class FavoritCocktail extends React.Component {
     render() {
         return (
             <li>
-            <span onClick={this.changeState}>{this.props.name}</span><i className="fa fa-trash fa-lg" onClick={() => {this.props.deleteFavoritCocktail(this.props.name);}}></i>
+            <span onClick={this.changeState}>{this.props.name}</span><i className="fa fa-trash fa-sm" onClick={() => {this.props.deleteFavoritCocktail(this.props.name);}}></i>
             <CocktailCard
             hide={this.state.cocktailCardIsHidden}
             randomCocktailName={this.props.name}
@@ -205,26 +208,37 @@ class App extends React.Component {
     
     render() {
 
-    var favoritCocktailList = this.state.favorits.map((favoritCocktail) =>
-    <FavoritCocktail
-    name={favoritCocktail["favoritCocktailName"]}
-    image={favoritCocktail["favoritCocktailImage"]}
-    ingredients={favoritCocktail["favoritCocktailIngredients"]}
-    recipe={favoritCocktail["favoritCocktailRecipe"]}
-    deleteFavoritCocktail={this.deleteFavoritCocktail}/>);
+        var addToFavoritesButtonDisplay = "";
+        if (this.state.buttonClicked) {
+            addToFavoritesButtonDisplay = "block";
+        } else {
+            addToFavoritesButtonDisplay = "none";
+        }
+
+        var favoritCocktailList = this.state.favorits.map((favoritCocktail) =>
+        <FavoritCocktail
+        name={favoritCocktail["favoritCocktailName"]}
+        image={favoritCocktail["favoritCocktailImage"]}
+        ingredients={favoritCocktail["favoritCocktailIngredients"]}
+        recipe={favoritCocktail["favoritCocktailRecipe"]}
+        deleteFavoritCocktail={this.deleteFavoritCocktail}/>);
 
         return (
-            <div>
-                <button onClick={ () => this.getRandomCocktail()}>My random cocktail</button>
-                <CocktailCard
-                hide={!this.state.buttonClicked}
-                randomCocktailName={this.state.randomCocktailName}
-                randomCocktailImage={this.state.randomCocktailImage}
-                ingredients={this.state.randomCocktailIngredients}
-                recipe={this.state.randomCocktailRecipe}
-                />
-                <button onClick={ () => this.saveFavoritCocktail()}>Add to my favorits</button>
-                <ul>{favoritCocktailList}</ul>
+            <div id="flexContainer">
+                <div class="left">
+                    <button onClick={ () => this.getRandomCocktail()}>My random cocktail</button>
+                    <CocktailCard
+                    hide={!this.state.buttonClicked}
+                    randomCocktailName={this.state.randomCocktailName}
+                    randomCocktailImage={this.state.randomCocktailImage}
+                    ingredients={this.state.randomCocktailIngredients}
+                    recipe={this.state.randomCocktailRecipe}
+                    />
+                    <button style={{display: addToFavoritesButtonDisplay}} onClick={ () => this.saveFavoritCocktail()}>Add to my favorits</button>
+                </div>
+                <div class="right">
+                    <ul>{favoritCocktailList}</ul>
+                </div>
             </div>
         )
     }

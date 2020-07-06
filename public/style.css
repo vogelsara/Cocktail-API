@@ -1,0 +1,97 @@
+body{
+    background-image: url(bg.jpg);
+    margin-bottom: 80px;
+}
+
+h1, button{
+    font-family: 'Permanent Marker', cursive;
+}
+
+h2, p, li{
+    font-family: 'Cedarville Cursive', cursive;
+}
+
+h1{
+    font-size: 3em;
+}
+
+h2{
+    font-size: 2em;
+}
+
+p{
+    font-size: 1.8em;
+}
+
+li{
+    font-size: 1.5em;
+    list-style-type: none;
+}
+
+#flexContainer{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.left, .right{
+    margin: 0 auto;
+    width: 50%;
+}
+
+.right li{
+    cursor: pointer;
+}
+
+button{
+    font-size: 2em;
+    margin: 0 auto;
+    display: block;
+    background-image: url(buttonbg.png);
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+
+#mainTitle{
+    text-align: center;
+}
+
+.cocktailCard{
+    text-align: center;
+}
+
+.cocktailImage{
+    position: relative;
+    display: inline-block;
+}
+
+.cocktailCard img{
+    transform: rotate(15deg);
+    height: 350px;
+    width: auto;
+    margin-top: 40px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.tape{
+    background-image: url("tape.png");
+    position: absolute;
+    width: 160px;
+    height: 50px;
+    top: 0;
+    left: 5px;
+    transform: rotate(-30deg);
+}
+
+.cocktailCard li{
+    line-height: 1.6em;
+}
+
+.fa-trash{
+    margin-left: 8px;
+    width: 10px;
+    height: auto;
+}
